@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<swg_services_file_v1 xmlns="urn:de.direct-netware.xmlns:swg.services.v1">
+ <cp>
+  <discuss active='1' position='3' lang=''>
+   <title value='Bulletin Board System Configuration' />
+   <description value='Manage boards: Add, edit, move, delete or link them in different board structures.' />
+   <image value='list_cp_discuss.png' />
+   <link value='m=cp&amp;s=discuss;index&amp;a=boards' type='url0' />
+   <guests value='0' />
+   <members value='0' />
+   <group>
+    <right value='srutype-ma' />
+    <right value='srutype-ad' />
+    <right value='cp_discuss' />
+   </group>
+  </discuss>
+ </cp>
+</swg_services_file_v1>

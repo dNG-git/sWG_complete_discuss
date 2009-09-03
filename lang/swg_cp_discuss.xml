@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<swg_lang_file_v1>
+
+<cp><discuss>
+
+ <board>
+  <delete><input input="string" /></delete>
+  <desc><input input="string" /></desc>
+  <down><input input="string" /></down>
+  <edit><input input="string" /></edit>
+
+  <link>
+   <delete><input input="string" /></delete>
+   <new><input input="string" /></new>
+  </link>
+
+  <list><empty><input input="string" /></empty></list>
+  <locked><input input="string" /></locked>
+  <new><input input="string" /></new>
+  <public><input input="string" /></public>
+  <title><alt><input input="string" /></alt></title>
+  <up><input input="string" /></up>
+  <views><counted><input input="string" /></counted></views>
+  <zone><input input="string" /></zone>
+ </board>
+
+ <boards>
+  <input input="string" />
+  <edit><input input="string" /></edit>
+ </boards>
+
+ <done>
+
+  <board>
+   <delete><input input="string" /></delete>
+   <edit><input input="string" /></edit>
+   <new><input input="string" /></new>
+
+   <link>
+    <delete><input input="string" /></delete>
+    <new><input input="string" /></new>
+   </link>
+  </board>
+
+ </done>
+
+</discuss></cp>
+
+</swg_lang_file_v1>

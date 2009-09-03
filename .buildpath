@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="data/settings"/>
+	<buildpathentry kind="src" path="system/classes/dhandler"/>
+	<buildpathentry kind="src" path="system/functions/datalinker"/>
+	<buildpathentry kind="src" path="system/modules/cp/discuss"/>
+	<buildpathentry kind="src" path="system/modules/datalinker"/>
+	<buildpathentry kind="src" path="system/modules/dataport/atom/discuss"/>
+	<buildpathentry kind="src" path="system/modules/dataport/swgap/cp/discuss"/>
+	<buildpathentry kind="src" path="system/modules/discuss"/>
+	<buildpathentry kind="src" path="system/osets/default"/>
+	<buildpathentry kind="src" path="system/osets/default_etitle"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+</buildpath>

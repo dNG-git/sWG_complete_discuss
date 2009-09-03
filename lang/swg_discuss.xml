@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<swg_lang_file_v1>
+
+<discuss>
+
+ <board>
+  <input input="string" />
+  <locked><input input="string" /></locked>
+  <new><posts><input input="string" /></posts></new>
+ </board>
+
+ <boards><input input="string" /></boards>
+
+ <cp>
+
+  <post>
+   <lock><input input="string" /></lock>
+   <unlock><input input="string" /></unlock>
+  </post>
+
+  <topic>
+   <lock><input input="string" /></lock>
+   <stick><input input="string" /></stick>
+   <unstick><input input="string" /></unstick>
+  </topic>
+
+ </cp>
+
+ <datalinker>
+  <sub>
+   <type>
+    <post><input input="string" value="" /></post>
+    <topic><input input="string" value="" /></topic>
+   </type>
+  </sub>
+ </datalinker>
+
+ <done>
+
+  <post>
+   <change><state><input input="string" /></state></change>
+   <edit><input input="string" /></edit>
+   <new><input input="string" /></new>
+  </post>
+
+  <topic>
+   <edit><input input="string" /></edit>
+   <new><input input="string" /></new>
+  </topic>
+
+ </done>
+
+ <latest><post><input input="string" /></post></latest>
+
+ <post>
+
+  <input input="string" />
+  <edit><input input="string" /></edit>
+
+  <list>
+   <input input="string" />
+   <empty><input input="string" /></empty>
+   <latest><input input="string" /></latest>
+  </list>
+
+  <locked><input input="string" /></locked>
+  <new><input input="string" /></new>
+  <reply><input input="string" /></reply>
+
+ </post>
+
+ <posts><input input="string" /></posts>
+ <smilies><parse><input input="string" /></parse></smilies>
+
+ <subboards><last><time>
+  <digitstart__1><input input="string" value="" /></digitstart__1>
+  <digitstart__2><input input="string" value="" /></digitstart__2>
+ </time></last></subboards>
+
+ <symbol>
+  <input input="string" />
+  <select><input input="string" /></select>
+ </symbol>
+
+ <symbols>
+  <input input="string" />
+  <empty><input input="string" /></empty>
+ </symbols>
+
+ <title><input input="string" /></title>
+
+ <topic>
+
+  <input input="string" />
+  <desc><input input="string" /></desc>
+  <edit><input input="string" /></edit>
+
+  <list>
+   <input input="string" />
+   <empty><input input="string" /></empty>
+  </list>
+
+  <locked><input input="string" /></locked>
+
+  <new>
+   <input input="string" />
+   <posts><input input="string" /></posts>
+  </new>
+
+  <sticky><input input="string" /></sticky>
+
+  <views>
+   <digitstart__1><input input="string" value="" /></digitstart__1>
+   <digitstart__2><input input="string" value="" /></digitstart__2>
+  </views>
+
+ </topic>
+
+ <topics>
+
+  <input input="string" />
+
+  <latest>
+   <input input="string" />
+   <boards><input input="string" /></boards>
+   <empty><input input="string" /></empty>
+  </latest>
+
+ </topics>
+
+ <without><posts><input input="string" /></posts></without>
+
+</discuss>
+
+<errors><discuss>
+ <did><invalid><input input="string" /></invalid></did>
+ <pid><invalid><input input="string" /></invalid></pid>
+ <tid><invalid><input input="string" /></invalid></tid>
+</discuss></errors>
+
+</swg_lang_file_v1>
