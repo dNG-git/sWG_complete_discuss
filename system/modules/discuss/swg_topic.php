@@ -154,7 +154,7 @@ case "edit-save":
 			if ($g_board_object) { $g_board_array = $g_board_object->get ($g_topic_array['ddbdatalinker_id_main']); }
 			if ((is_array ($g_board_array))&&($g_topic_object->is_writable ())) { $g_rights_check = $g_board_object->is_writable (); }
 		}
-		elseif ($g_rights_check)
+		else
 		{
 			$g_datasub_check = true;
 			$g_rights_check = $g_topic_object->is_writable ();
