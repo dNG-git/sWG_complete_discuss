@@ -715,7 +715,7 @@ array ("type" => "left-outer-join","table" => $direct_settings['datalinkerd_tabl
 			$this->define_extra_joins ($f_select_joins);
 			$this->define_extra_conditions ("<element1 attribute='{$direct_settings['datalinker_table']}.ddbdatalinker_type' value='4' type='number' operator='&lt;=' />");
 
-			$this->class_subboards[$f_cache_signature] = parent::get_subs ("direct_discuss_board",$this->data['ddbdatalinker_id_main'],$this->data['ddbdatalinker_id'],"cb41ecf6e90a594dcea60b6140251d62","",$f_offset,$f_perpage,$f_sorting_mode);
+			$this->class_subboards[$f_cache_signature] = parent::get_subs ("direct_discuss_board",$this->data['ddbdatalinker_id_main'],$this->data['ddbdatalinker_id'],$this->data_sid,"",$f_offset,$f_perpage,$f_sorting_mode);
 			// md5 ("discuss")
 
 			$f_return =& $this->class_subboards[$f_cache_signature];
