@@ -321,7 +321,7 @@ $f_return = ("<table cellspacing='1' summary='' class='pageborder1' style='width
 		if ($f_topic_array['views_counted']) { $f_return .= "<br /><span style='font-size:10px'>".(direct_local_get ("discuss_topic_views_1")).$f_topic_array['views'].(direct_local_get ("discuss_topic_views_2"))."</span>"; }
 		$f_return .= "</span></td>";
 
-		if ($f_topic_array['last_time'])
+		if ($f_topic_array['last_post_jump'])
 		{
 			$f_return .= "\n<td valign='middle' align='left' class='pagebg' style='width:35%;padding:$direct_settings[theme_td_padding]'><span class='pagecontent' style='font-size:10px'><span style='font-weight:bold'>{$f_topic_array['last_time']}</span>";
 			if (($f_topic_array['last_preview'])&&($f_topic_array['username'])) { $f_return .= "<br />\n{$f_topic_array['last_preview']} ({$f_topic_array['username']})"; }
@@ -381,7 +381,7 @@ djs_discuss_topics_new_check ('{$f_topic_array['id']}_new','','discuss_topics_{$
 $f_return .= ("<span style='font-weight:bold'><a href=\"{$f_topic_array['pageurl_main']}\" target='_self'>".(direct_local_get ("discuss_board"))."</a></span></p></td>
 <td valign='middle' align='center' class='pagebg' style='width:10%;padding:$direct_settings[theme_td_padding]'><span class='pagecontent'>{$f_topic_array['posts']}</span></td>");
 
-		if (($f_topic_array['last_time'])&&($f_topic_array['username']))
+		if (($f_topic_array['last_post_jump'])&&($f_topic_array['username']))
 		{
 			$f_return .= "\n<td valign='middle' align='left' class='pageextrabg' style='width:35%;padding:$direct_settings[theme_td_padding]'><span class='pageextracontent' style='font-size:10px'><span style='font-weight:bold'>{$f_topic_array['last_time']}</span>";
 			if ($f_topic_array['last_preview']) { $f_return .= "<br />\n{$f_topic_array['last_preview']} ({$f_topic_array['username']})"; }
