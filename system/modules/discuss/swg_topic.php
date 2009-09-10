@@ -236,6 +236,18 @@ We should have input in save mode
 		}
 		else
 		{
+			if (($direct_settings['discuss_account_status_ex'])&&($direct_settings['user']['type'] == "gt"))
+			{
+				$g_uuid_string = $direct_classes['kernel']->v_uuid_get ("s");
+
+				if (!$g_uuid_string)
+				{
+					$g_uuid_string = "<evars><userid /></evars>";
+					$direct_classes['kernel']->v_uuid_write ($g_uuid_string);
+					$direct_classes['kernel']->v_uuid_cookie_save ();
+				}
+			}
+
 			$direct_cachedata['i_dtitle'] = $g_topic_array['ddbdatalinker_title'];
 			$direct_cachedata['i_ddesc'] = $direct_classes['formtags']->recode_newlines (direct_output_smiley_cleanup ($g_topic_array['ddbdiscuss_topics_desc']),false);
 
@@ -607,6 +619,18 @@ We should have input in save mode
 		}
 		else
 		{
+			if (($direct_settings['discuss_account_status_ex'])&&($direct_settings['user']['type'] == "gt"))
+			{
+				$g_uuid_string = $direct_classes['kernel']->v_uuid_get ("s");
+
+				if (!$g_uuid_string)
+				{
+					$g_uuid_string = "<evars><userid /></evars>";
+					$direct_classes['kernel']->v_uuid_write ($g_uuid_string);
+					$direct_classes['kernel']->v_uuid_cookie_save ();
+				}
+			}
+
 			$direct_cachedata['i_dtitle'] = "";
 			$direct_cachedata['i_ddesc'] = "";
 

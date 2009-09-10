@@ -320,7 +320,7 @@ array ("type" => "left-outer-join","table" => $direct_settings['data_table'],"co
 
 			$f_result_array = parent::get_aid ($f_attributes,$f_values);
 
-			if (($f_result_array)&&($f_result_array['ddbdatalinker_sid'] == $this->data_sid)&&($f_result_array['ddbdatalinker_type'] == 6))
+			if (($f_result_array)&&(isset ($f_result_array['ddbdiscuss_posts_id'])))
 			{
 				$this->data = $f_result_array;
 				$this->data_locked = ($this->data['ddbdiscuss_posts_locked'] ? true : false);

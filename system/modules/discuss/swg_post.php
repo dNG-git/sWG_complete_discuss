@@ -154,10 +154,9 @@ case "edit-save":
 		}
 	}
 
-	if (($g_topic_object)&&(!$g_topic_object->is_of_type ("cb41ecf6e90a594dcea60b6140251d62",5))) { $g_datasub_check = true; }
-	elseif (is_array ($g_topic_array))
+	if (is_array ($g_topic_array))
 	{
-		if ($g_topic_array['ddbdatalinker_id_main'])
+		if (($g_topic_array['ddbdatalinker_sid'] == "cb41ecf6e90a594dcea60b6140251d62")&&($g_topic_array['ddbdatalinker_id_main']))
 		{
 			$g_board_object = new direct_discuss_board ();
 			if ($g_board_object) { $g_board_array = $g_board_object->get ($g_topic_array['ddbdatalinker_id_main']); }
@@ -170,6 +169,7 @@ case "edit-save":
 			$g_rights_check = $g_topic_object->is_writable ();
 		}
 	}
+	elseif (($g_topic_object)&&(!$g_topic_object->is_of_type ("cb41ecf6e90a594dcea60b6140251d62",5))) { $g_datasub_check = true; }
 
 	if ((!$g_datasub_check)&&(!is_array ($g_board_array))) { $direct_classes['error_functions']->error_page ("standard","discuss_pid_invalid","sWG/#echo(__FILEPATH__)# _a={$direct_settings['a']}_ (#echo(__LINE__)#)"); }
 	elseif ($g_rights_check)
@@ -252,6 +252,18 @@ We should have input in save mode
 		}
 		else
 		{
+			if (($direct_settings['discuss_account_status_ex'])&&($direct_settings['user']['type'] == "gt"))
+			{
+				$g_uuid_string = $direct_classes['kernel']->v_uuid_get ("s");
+
+				if (!$g_uuid_string)
+				{
+					$g_uuid_string = "<evars><userid /></evars>";
+					$direct_classes['kernel']->v_uuid_write ($g_uuid_string);
+					$direct_classes['kernel']->v_uuid_cookie_save ();
+				}
+			}
+
 			$direct_cachedata['i_dtitle'] = $g_post_array['ddbdatalinker_title'];
 			$direct_cachedata['i_dpost'] = $direct_classes['formtags']->recode_newlines (direct_output_smiley_cleanup ($g_post_array['ddbdata_data']),false);
 
@@ -582,7 +594,7 @@ case "reply":
 	$g_topic_object = new direct_discuss_topic ();
 
 	$g_topic_array = ($g_topic_object ? $g_topic_object->get ($g_tid) : NULL);
-	if (!$g_topic_object->is_of_type ("cb41ecf6e90a594dcea60b6140251d62",5)) { $g_datasub_check = $g_topic_object->is_sub_allowed (); }
+	if ((!is_array ($g_topic_array))&&(!$g_topic_object->is_of_type ("cb41ecf6e90a594dcea60b6140251d62",5))) { $g_datasub_check = $g_topic_object->is_sub_allowed (); }
 
 	$g_datasub_parent_check = $g_datasub_check;
 	$g_rights_check = $g_datasub_check;
@@ -591,7 +603,7 @@ case "reply":
 	{
 		$g_rights_check = $g_topic_object->is_writable ();
 
-		if ($g_topic_array['ddbdatalinker_id_main'])
+		if (($g_topic_array['ddbdatalinker_sid'] == "cb41ecf6e90a594dcea60b6140251d62")&&($g_topic_array['ddbdatalinker_id_main']))
 		{
 			$g_board_object = new direct_discuss_board ();
 			if ($g_board_object) { $g_board_array = $g_board_object->get ($g_topic_array['ddbdatalinker_id_main']); }
@@ -693,6 +705,18 @@ We should have input in save mode
 		}
 		else
 		{
+			if (($direct_settings['discuss_account_status_ex'])&&($direct_settings['user']['type'] == "gt"))
+			{
+				$g_uuid_string = $direct_classes['kernel']->v_uuid_get ("s");
+
+				if (!$g_uuid_string)
+				{
+					$g_uuid_string = "<evars><userid /></evars>";
+					$direct_classes['kernel']->v_uuid_write ($g_uuid_string);
+					$direct_classes['kernel']->v_uuid_cookie_save ();
+				}
+			}
+
 			if ($g_reply_post_id)
 			{
 				$direct_cachedata['i_dtitle'] = (((isset ($g_topic_array['ddbdatalinker_title_alt']))&&(strlen ($g_topic_array['ddbdatalinker_title_alt']))) ? $g_topic_array['ddbdatalinker_title_alt'] : $g_topic_array['ddbdatalinker_title']);
@@ -1106,16 +1130,16 @@ case "state":
 		if ($g_topic_object) { $g_topic_array = $g_topic_object->get ($g_post_array['ddbdatalinker_id_main']); }
 	}
 
-	if (($g_topic_object)&&(!$g_topic_object->is_of_type ("cb41ecf6e90a594dcea60b6140251d62",5))) { $g_datasub_check = true; }
-	elseif (is_array ($g_topic_array))
+	if (is_array ($g_topic_array))
 	{
-		if ($g_topic_array['ddbdatalinker_id_main'])
+		if (($g_topic_array['ddbdatalinker_sid'] == "cb41ecf6e90a594dcea60b6140251d62")&&($g_topic_array['ddbdatalinker_id_main']))
 		{
 			$g_board_object = new direct_discuss_board ();
 			if ($g_board_object->get ($g_topic_array['ddbdatalinker_id_main'])) { $g_rights_check = $g_board_object->is_moderator (); }
 		}
 		else { $g_datasub_check = true; }
 	}
+	elseif (($g_topic_object)&&(!$g_topic_object->is_of_type ("cb41ecf6e90a594dcea60b6140251d62",5))) { $g_datasub_check = true; }
 
 	if (($g_datasub_check)&&($direct_classes['kernel']->v_usertype_get_int ($direct_settings['user']['type']) > 3)) { $g_rights_check = true; }
 
