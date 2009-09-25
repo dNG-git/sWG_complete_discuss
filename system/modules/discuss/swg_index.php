@@ -434,6 +434,8 @@ case "posts":
 		if ($g_printview) { direct_output_theme_subtype ("printview"); }
 		direct_class_init ("output");
 
+		$direct_cachedata['output_source'] = urlencode (base64_encode ($direct_cachedata['page_this']));
+
 		if ($g_printview) { $direct_classes['output']->options_insert (2,"servicemenu",$direct_cachedata['page_this'],(direct_local_get ("core_back")),$direct_settings['serviceicon_default_back'],"url0"); }
 		else
 		{

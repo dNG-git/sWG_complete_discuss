@@ -231,7 +231,7 @@ $f_return .= ("<tr>
 			$f_source = urlencode (base64_encode ($direct_cachedata['page_this']));
 
 			$f_return .= (($direct_cachedata['output_topic']['subs'] > 1) ? "<span style='font-size:8px'>&#0160;</span><div class='pageborder2' style='width:100%;height:$direct_settings[theme_datalinker_iview_height];overflow:auto'>" : "<span style='font-size:8px'>&#0160;</span><div class='pageborder2'>");
-			$f_return .= direct_datalinker_oset_iview_subs ($direct_cachedata['output_topic'],5,$f_source,"default",false,false);
+			$f_return .= direct_datalinker_oset_iview_subs ($direct_cachedata['output_topic'],5,$f_source,NULL,"default",false,false);
 			$f_return .= "</div>";
 		}
 

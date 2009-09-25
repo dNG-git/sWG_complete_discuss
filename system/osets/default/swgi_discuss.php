@@ -68,7 +68,7 @@ if (!defined ("direct_product_iversion")) { exit (); }
 
 //f// direct_oset_discuss_boards_parse ($f_boards)
 /**
-* direct_datalinker_oset_iview ()
+* direct_oset_discuss_boards_parse ()
 *
 * @param  array $f_boards Boards to be parsed
 * @uses   direct_debug()
@@ -205,8 +205,7 @@ $f_return .= ($f_post_array['title']."</span></td>
 		if (($f_post_array['subs_allowed'])||($f_post_array['subs_available']))
 		{
 			$direct_classes['basic_functions']->require_file ($direct_settings['path_system']."/osets/$direct_settings[theme_oset]/swgi_datalinker_iview.php");
-			$f_source = urlencode (base64_encode ($direct_cachedata['page_this']));
-			$f_return .= "<img src='".(direct_linker_dynamic ("url0","s=cache&dsd=dfile+$direct_settings[path_mmedia]/spacer.png",true,false))."' width='100%' height='1' alt='' title='' class='pagehr' style='$direct_settings[formtags_hr_style]' />".(direct_datalinker_oset_iview_subs ($f_post_array,5,$f_source,"minimal"));
+			$f_return .= "<img src='".(direct_linker_dynamic ("url0","s=cache&dsd=dfile+$direct_settings[path_mmedia]/spacer.png",true,false))."' width='100%' height='1' alt='' title='' class='pagehr' style='$direct_settings[formtags_hr_style]' />".(direct_datalinker_oset_iview_subs ($f_post_array,5,$direct_cachedata['output_source'],NULL,"minimal"));
 		}
 
 		$f_return .= "</td>\n</tr>";
