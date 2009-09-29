@@ -535,13 +535,12 @@ array ("type" => "left-outer-join","table" => $direct_settings['data_table'],"co
 			if ($this->data['ddbdatalinker_sorting_date']) { $f_return[$f_prefix."time"] = $direct_classes['basic_functions']->datetime ("longdate&time",$this->data['ddbdatalinker_sorting_date'],$direct_settings['user']['timezone'],(direct_local_get ("datetime_dtconnect"))); }
 			else { $f_return[$f_prefix."time"] = direct_local_get ("core_unknown"); }
 
-			$f_return[$f_prefix."text"] = $direct_classes['formtags']->decode ($this->data['ddbdata_data']);
-
 			if ($this->data_locked)
 			{
 				$f_return[$f_prefix."text"] = "<span style='font-weight:bold'>".(direct_local_get ("discuss_post_locked"))."</span>";
-				if (($f_is_moderator)||($direct_classes['kernel']->v_usertype_get_int ($direct_settings['user']['type']) > 3)) { $f_return[$f_prefix."text"] .= "<br /><br />\n".$f_return[$f_prefix."text"]; }
+				if (($f_is_moderator)||($direct_classes['kernel']->v_usertype_get_int ($direct_settings['user']['type']) > 3)) { $f_return[$f_prefix."text"] .= "<br /><br />\n".($direct_classes['formtags']->decode ($this->data['ddbdata_data'])); }
 			}
+			else { $f_return[$f_prefix."text"] = $direct_classes['formtags']->decode ($this->data['ddbdata_data']); }
 
 			if (($this->data['ddbdiscuss_posts_user_id'])&&($this->data['ddbusers_name'])) { $f_user_array = $direct_classes['kernel']->v_user_parse ($this->data['ddbdiscuss_posts_user_id'],$this->data,$f_prefix."user"); }
 			else

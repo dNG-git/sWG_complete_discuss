@@ -44,7 +44,7 @@ NOTE_END //n*/
 * @author     direct Netware Group
 * @copyright  (C) direct Netware Group - All rights reserved
 * @package    sWG
-* @subpackage cp_nim
+* @subpackage discuss
 * @uses       direct_product_iversion
 * @since      v0.1.00
 * @license    http://www.direct-netware.de/redirect.php?licenses;gpl
@@ -67,6 +67,7 @@ if (!defined ("direct_product_iversion")) { exit (); }
 //j// Script specific commands
 
 if (!isset ($direct_settings['cp_https_discuss_manage_boards'])) { $direct_settings['cp_https_discuss_manage_boards'] = false; }
+if (!isset ($direct_settings['serviceicon_cp_discuss_board_new'])) { $direct_settings['serviceicon_cp_discuss_board_new'] = "mini_default_option.png"; }
 if (!isset ($direct_settings['serviceicon_default_back'])) { $direct_settings['serviceicon_default_back'] = "mini_default_back.png"; }
 $direct_settings['additional_copyright'][] = array ("Module discuss #echo(sWGdiscussVersion)# - (C) ","http://www.direct-netware.de/redirect.php?swg","direct Netware Group"," - All rights reserved");
 
@@ -95,7 +96,10 @@ case "boards":
 	direct_local_integration ("cp_discuss");
 	direct_local_integration ("discuss");
 
+	$g_rights_check = ((($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_boards_all"))||($direct_settings['user']['type'] == "ad")) ? true : false);
+
 	direct_class_init ("output");
+	if ($g_rights_check) { $direct_classes['output']->options_insert (1,"servicemenu","m=cp&s=discuss;board&a=new",(direct_local_get ("cp_discuss_board_new")),$direct_settings['serviceicon_cp_discuss_board_new'],"url0"); }
 	$direct_classes['output']->options_insert (2,"servicemenu",$direct_cachedata['page_backlink'],(direct_local_get ("core_back")),$direct_settings['serviceicon_default_back'],"url0");
 
 	$g_boards_array = NULL;
@@ -114,11 +118,9 @@ case "boards":
 		foreach ($g_boards_array as $g_datalinker_object)
 		{
 			$g_datalinker_array = $g_datalinker_object->get ();
-			$g_rights_check = (($direct_settings['user']['type'] == "ad") ? true : false);
+			$g_board_rights_check = ((($g_rights_check)||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$g_datalinker_array['ddbdatalinker_id_main']))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_{$g_datalinker_array['ddbdatalinker_id_main']}_links"))) ? true : false);
 
-			if ((!$g_rights_check)&&(($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$g_datalinker_array['ddbdatalinker_id_main']))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_{$g_datalinker_array['ddbdatalinker_id_main']}_links")))) { $g_rights_check = true; }
-
-			if ($g_rights_check)
+			if ($g_board_rights_check)
 			{
 				$g_parsed_array = $g_datalinker_object->parse ();
 				$g_parsed_array['pageurl'] = direct_linker ("url0","m=dataport&s=swgap;cp;discuss;board&a=list&dsd=ddid+{$g_parsed_array['oid']}++dtheme+1");
@@ -126,18 +128,10 @@ case "boards":
 			}
 		}
 
-		if ((empty ($direct_cachedata['output_boards']))||(count ($direct_cachedata['output_boards']) > 1))
-		{
-			direct_output_related_manager ("cp_discuss_index_boards","post_module_service_action");
-			$direct_classes['output']->oset ("cp_discuss","boards");
-			$direct_classes['output']->header (false,true,$direct_settings['p3p_url'],$direct_settings['p3p_cp']);
-			$direct_classes['output']->page_show (direct_local_get ("cp_discuss_boards"));
-		}
-		else
-		{
-			$g_page_link = direct_linker ("url1","m=dataport&s=swgap;cp;discuss;board&a=list&dsd=ddid+{$direct_cachedata['output_boards'][0]['oid']}++dtheme+1",false);
-			$direct_classes['output']->redirect ($g_page_link);
-		}
+		direct_output_related_manager ("cp_discuss_index_boards","post_module_service_action");
+		$direct_classes['output']->oset ("cp_discuss","boards");
+		$direct_classes['output']->header (false,true,$direct_settings['p3p_url'],$direct_settings['p3p_cp']);
+		$direct_classes['output']->page_show (direct_local_get ("cp_discuss_boards"));
 	}
 	else { $direct_classes['error_functions']->error_page ("fatal","core_unknown_error","sWG/#echo(__FILEPATH__)# _a=boards_ (#echo(__LINE__)#)"); }
 	//j// EOA

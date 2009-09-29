@@ -44,7 +44,7 @@ NOTE_END //n*/
 * @author     direct Netware Group
 * @copyright  (C) direct Netware Group - All rights reserved
 * @package    sWG
-* @subpackage cp_nim
+* @subpackage discuss
 * @uses       direct_product_iversion
 * @since      v0.1.00
 * @license    http://www.direct-netware.de/redirect.php?licenses;gpl
@@ -119,7 +119,7 @@ case "edit-save":
 
 		if ((!$g_rights_check)&&($direct_classes['kernel']->v_group_user_check_right ("cp_access")))
 		{
-			if ($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$direct_cachedata['output_did']))
+			if (($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_boards_all"))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$direct_cachedata['output_did'])))
 			{
 				$g_rights_check = true;
 				$g_right_write_check = true;
@@ -344,7 +344,7 @@ case "link_delete":
 	if ($g_continue_check)
 	{
 		$g_rights_check = (($direct_settings['user']['type'] == "ad") ? true : false);
-		if ((!$g_rights_check)&&($direct_classes['kernel']->v_group_user_check_right ("cp_access"))&&(($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$g_did))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_{$g_did}_links")))) { $g_rights_check = true; }
+		if ((!$g_rights_check)&&($direct_classes['kernel']->v_group_user_check_right ("cp_access"))&&(($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_boards_all"))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$g_did))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_{$g_did}_links")))) { $g_rights_check = true; }
 	}
 
 	if ($g_continue_check)
@@ -429,7 +429,7 @@ case "link_new-save":
 	if ($g_continue_check)
 	{
 		$g_rights_check = (($direct_settings['user']['type'] == "ad") ? true : false);
-		if ((!$g_rights_check)&&($direct_classes['kernel']->v_group_user_check_right ("cp_access"))&&(($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$g_did))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_{$g_did}_links")))) { $g_rights_check = true; }
+		if ((!$g_rights_check)&&($direct_classes['kernel']->v_group_user_check_right ("cp_access"))&&(($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_boards_all"))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$g_did))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_{$g_did}_links")))) { $g_rights_check = true; }
 	}
 
 	if ($g_continue_check)
@@ -548,7 +548,7 @@ case "link_new-post":
 	if ($g_continue_check)
 	{
 		$g_rights_check = (($direct_settings['user']['type'] == "ad") ? true : false);
-		if ((!$g_rights_check)&&($direct_classes['kernel']->v_group_user_check_right ("cp_access"))&&(($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$g_did))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_{$g_did}_links")))) { $g_rights_check = true; }
+		if ((!$g_rights_check)&&($direct_classes['kernel']->v_group_user_check_right ("cp_access"))&&(($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_boards_all"))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$g_did))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_{$g_did}_links")))) { $g_rights_check = true; }
 	}
 
 	if ($g_continue_check)
@@ -719,7 +719,12 @@ case "new-save":
 	if ($g_continue_check)
 	{
 		$g_rights_check = (($direct_settings['user']['type'] == "ad") ? true : false);
-		if (!$g_rights_check) { $g_rights_check = ((($direct_classes['kernel']->v_group_user_check_right ("cp_access"))&&($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$g_did))) ? true : false); }
+
+		if ((!$g_rights_check)&&($direct_classes['kernel']->v_group_user_check_right ("cp_access")))
+		{
+			$g_rights_check = ($g_did ? $direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$g_did) : false);
+			if (!$g_rights_check) { $g_rights_check = $direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_boards_all"); }
+		}
 	}
 
 	if ($g_continue_check)
@@ -727,13 +732,15 @@ case "new-save":
 	if ($g_rights_check)
 	{
 	//j// BOA
-	if ($g_mode_save) { direct_output_related_manager ("cp_discuss_board_new_{$g_did}_form_save","pre_module_service_action"); }
-	else
+	if ($g_mode_save)
 	{
-		direct_output_related_manager ("cp_discuss_board_new_{$g_did}_form","pre_module_service_action");
-		$direct_classes['kernel']->service_https ($direct_settings['cp_https_discuss_manage_boards'],$direct_cachedata['page_this']);
+		if ($g_did) { direct_output_related_manager ("cp_discuss_board_new_{$g_did}_form_save","pre_module_service_action"); }
+		else { direct_output_related_manager ("cp_discuss_board_new_form_save","pre_module_service_action"); }
 	}
+	elseif ($g_did) { direct_output_related_manager ("cp_discuss_board_new_{$g_did}_form","pre_module_service_action"); }
+	else { direct_output_related_manager ("cp_discuss_board_new_form","pre_module_service_action"); }
 
+	if (!$g_mode_save) { $direct_classes['kernel']->service_https ($direct_settings['cp_https_discuss_manage_boards'],$direct_cachedata['page_this']); }
 	$direct_classes['basic_functions']->settings_get ($direct_settings['path_data']."/settings/swg_discuss.php",true);
 	$direct_classes['basic_functions']->require_file ($direct_settings['path_system']."/classes/dhandler/swg_discuss_board.php");
 	$direct_classes['basic_functions']->require_file ($direct_settings['path_system']."/classes/swg_formbuilder.php");
@@ -754,13 +761,21 @@ case "new-save":
 
 	$g_board_object = new direct_discuss_board ();
 
-	if (($g_board_object)&&($g_board_object->get ($g_did)))
+	if (($g_board_object)&&((!$g_did)||($g_board_object->get ($g_did))))
 	{
-		if (($g_eid)&&(!$g_mode_save))
+		if (!$g_mode_save)
 		{
-			$g_source_board_object = new direct_discuss_board ();
-			$g_source_board_array = ($g_source_board_object ? $g_source_board_object->get ($g_eid) : NULL);
-			if (!is_array ($g_source_board_array)) { $g_eid = ""; }
+			if ($g_eid)
+			{
+				$g_source_board_object = new direct_discuss_board ();
+				$g_source_board_array = ($g_source_board_object ? $g_source_board_object->get ($g_eid) : NULL);
+				if (!is_array ($g_source_board_array)) { $g_eid = ""; }
+			}
+			elseif ($g_did)
+			{
+				$g_source_board_array = $g_board_object->get ();
+				$g_source_board_object = $g_board_object;
+			}
 		}
 
 		if ($g_mode_save)
@@ -798,22 +813,22 @@ We should have input in save mode
 			$direct_cachedata['i_ddesc'] = "";
 			$direct_cachedata['i_dzone'] = "<evars><no><value value='0' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no><yes><value value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes></evars>";
 
-			if ((!$g_eid)||($g_source_board_array['ddbdiscuss_boards_public'])) { $direct_cachedata['i_dpublic'] = "<evars><yes><value value='1' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes><no><value value='0' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no></evars>"; }
+			if (((!$g_did)&&(!$g_eid))||($g_source_board_array['ddbdiscuss_boards_public'])) { $direct_cachedata['i_dpublic'] = "<evars><yes><value value='1' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes><no><value value='0' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no></evars>"; }
 			else { $direct_cachedata['i_dpublic'] = "<evars><yes><value value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes><no><value value='0' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no></evars>"; }
 
-			if ((!$g_eid)||($g_source_board_object->is_views_counting ())) { $direct_cachedata['i_dviews_count'] = "<evars><yes><value value='1' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes><no><value value='0' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no></evars>"; }
+			if (((!$g_did)&&(!$g_eid))||($g_source_board_object->is_views_counting ())) { $direct_cachedata['i_dviews_count'] = "<evars><yes><value value='1' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes><no><value value='0' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no></evars>"; }
 			else { $direct_cachedata['i_dviews_count'] = "<evars><yes><value value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes><no><value value='0' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no></evars>"; }
 
-			if (($g_eid)&&($g_source_board_object->is_locked ())) { $direct_cachedata['i_dlocked'] = "<evars><no><value value='0' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no><yes><value value='1' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes></evars>"; }
+			if ((($g_did)||($g_eid))&&($g_source_board_object->is_locked ())) { $direct_cachedata['i_dlocked'] = "<evars><no><value value='0' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no><yes><value value='1' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes></evars>"; }
 			else { $direct_cachedata['i_dlocked'] = "<evars><no><value value='0' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no><yes><value value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes></evars>"; }
 
-			if (($g_eid)&&($g_source_board_object->is_sub_allowed ())) { $direct_cachedata['i_dsubs_allowed'] = "<evars><yes><value value='1' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes><no><value value='0' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no></evars>"; }
+			if ((($g_did)||($g_eid))&&($g_source_board_object->is_sub_allowed ())) { $direct_cachedata['i_dsubs_allowed'] = "<evars><yes><value value='1' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes><no><value value='0' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no></evars>"; }
 			else { $direct_cachedata['i_dsubs_allowed'] = "<evars><yes><value value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes><no><value value='0' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no></evars>"; }
 
-			if ((!$g_eid)||($g_source_board_array['ddbdatalinker_datasubs_hide'])) { $direct_cachedata['i_dsubs_hidden'] = "<evars><yes><value value='1' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes><no><value value='0' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no></evars>"; }
+			if (((!$g_did)&&(!$g_eid))||($g_source_board_array['ddbdatalinker_datasubs_hide'])) { $direct_cachedata['i_dsubs_hidden'] = "<evars><yes><value value='1' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes><no><value value='0' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no></evars>"; }
 			else { $direct_cachedata['i_dsubs_hidden'] = "<evars><yes><value value='1' /><text><![CDATA[".(direct_local_get ("core_yes"))."]]></text></yes><no><value value='0' /><selected value='1' /><text><![CDATA[".(direct_local_get ("core_no"))."]]></text></no></evars>"; }
 
-			$direct_cachedata['i_dsubs_type'] = ((($g_eid)&&(isset ($g_source_board_array['ddbdatalinker_datasubs_type']))) ? str_replace ("'","",$g_source_board_array['ddbdatalinker_datasubs_type']) : 0);
+			$direct_cachedata['i_dsubs_type'] = (((($g_did)||($g_eid))&&(isset ($g_source_board_array['ddbdatalinker_datasubs_type']))) ? str_replace ("'","",$g_source_board_array['ddbdatalinker_datasubs_type']) : 0);
 		}
 
 $direct_cachedata['i_dsubs_type'] = str_replace ("<value value='$direct_cachedata[i_dsubs_type]' />","<value value='$direct_cachedata[i_dsubs_type]' /><selected value='1' />","<evars>
@@ -847,8 +862,12 @@ Build the form
 Save data edited
 ------------------------------------------------------------------------- */
 
-			$g_board_structure_data_array = $g_board_object->get_structure ("","",false);
-			$g_continue_check = is_array ($g_board_structure_data_array);
+			if ($g_did)
+			{
+				$g_board_structure_data_array = $g_board_object->get_structure ("","",false);
+				$g_continue_check = is_array ($g_board_structure_data_array);
+			}
+			else { $g_board_structure_data_array = array ("structured" => NULL); }
 
 			if ($g_continue_check)
 			{
@@ -923,6 +942,8 @@ $g_insert_array = array (
 
 			if ($g_continue_check)
 			{
+				if (!$g_did) { $g_did = $g_insert_array['ddbdatalinker_id']; }
+
 				$direct_cachedata['output_job'] = direct_local_get ("cp_discuss_board_new");
 				$direct_cachedata['output_job_desc'] = direct_local_get ("cp_discuss_done_board_new");
 				$direct_cachedata['output_jsjump'] = 2000;

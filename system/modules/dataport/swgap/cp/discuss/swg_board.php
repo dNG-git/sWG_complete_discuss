@@ -44,7 +44,7 @@ NOTE_END //n*/
 * @author     direct Netware Group
 * @copyright  (C) direct Netware Group - All rights reserved
 * @package    sWG
-* @subpackage datacenter
+* @subpackage discuss
 * @uses       direct_product_iversion
 * @since      v0.1.00
 * @license    http://www.direct-netware.de/redirect.php?licenses;gpl
@@ -130,7 +130,7 @@ case "list":
 
 		if ((!$g_rights_check)&&($direct_classes['kernel']->v_group_user_check_right ("cp_access")))
 		{
-			if ($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$direct_cachedata['output_did']))
+			if (($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_boards_all"))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$direct_cachedata['output_did'])))
 			{
 				$g_rights_check = true;
 				$g_right_write_check = true;
@@ -302,7 +302,7 @@ case "move":
 	if ($g_continue_check)
 	{
 		$g_rights_check = (($direct_settings['user']['type'] == "ad") ? true : false);
-		if ((!$g_rights_check)&&($direct_classes['kernel']->v_group_user_check_right ("cp_access"))&&(($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$g_did))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_{$g_did}_links")))) { $g_rights_check = true; }
+		if ((!$g_rights_check)&&($direct_classes['kernel']->v_group_user_check_right ("cp_access"))&&(($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_boards_all"))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_".$g_did))||($direct_classes['kernel']->v_group_user_check_right ("cp_discuss_manage_board_{$g_did}_links")))) { $g_rights_check = true; }
 	}
 
 	if ($g_continue_check)

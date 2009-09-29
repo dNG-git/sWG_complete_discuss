@@ -2,7 +2,6 @@
 <swg_lang_file_v1>
 
 <discuss>
-
  <board>
   <input input="string" />
   <locked><input input="string" /></locked>
@@ -10,21 +9,6 @@
  </board>
 
  <boards><input input="string" /></boards>
-
- <cp>
-
-  <post>
-   <lock><input input="string" /></lock>
-   <unlock><input input="string" /></unlock>
-  </post>
-
-  <topic>
-   <lock><input input="string" /></lock>
-   <stick><input input="string" /></stick>
-   <unstick><input input="string" /></unstick>
-  </topic>
-
- </cp>
 
  <datalinker>
   <sub>
@@ -36,7 +20,6 @@
  </datalinker>
 
  <done>
-
   <post>
    <change><state><input input="string" /></state></change>
    <edit><input input="string" /></edit>
@@ -47,15 +30,20 @@
    <edit><input input="string" /></edit>
    <new><input input="string" /></new>
   </topic>
-
  </done>
 
  <latest><post><input input="string" /></post></latest>
 
  <post>
+  <dright>
+   <digitstart__0><input input="string" value="" /></digitstart__0>
+   <r><input input="string" value="" /></r>
+   <w><input input="string" value="" /></w>
+  </dright>
 
-  <input input="string" />
   <edit><input input="string" /></edit>
+  <input input="string" />
+  <gright><input input="string" /></gright>
 
   <list>
    <input input="string" />
@@ -63,10 +51,12 @@
    <latest><input input="string" /></latest>
   </list>
 
+  <lock><input input="string" /></lock>
   <locked><input input="string" /></locked>
   <new><input input="string" /></new>
+  <pright><input input="string" /></pright>
   <reply><input input="string" /></reply>
-
+  <unlock><input input="string" /></unlock>
  </post>
 
  <posts><input input="string" /></posts>
@@ -90,7 +80,6 @@
  <title><input input="string" /></title>
 
  <topic>
-
   <input input="string" />
   <desc><input input="string" /></desc>
   <edit><input input="string" /></edit>
@@ -100,6 +89,7 @@
    <empty><input input="string" /></empty>
   </list>
 
+  <lock><input input="string" /></lock>
   <locked><input input="string" /></locked>
 
   <new>
@@ -107,13 +97,13 @@
    <posts><input input="string" /></posts>
   </new>
 
+  <stick><input input="string" /></stick>
   <sticky><input input="string" /></sticky>
 
   <views>
    <digitstart__1><input input="string" value="" /></digitstart__1>
    <digitstart__2><input input="string" value="" /></digitstart__2>
   </views>
-
  </topic>
 
  <topics>
